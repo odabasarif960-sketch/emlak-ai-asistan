@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emlak AI - Acente Yönetim Paneli</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0f172a; --surface: #1e293b; --surface2: #334155;
+            --accent: #f59e0b; --accent-hover: #fbbf24;
+            --text: #f8fafc; --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg); color: var(--text); display: flex; min-height: 100vh; }
+        
+        .sidebar { width: 260px; background: var(--surface); border-right: 1px solid var(--border); padding: 24px; display: flex; flex-direction: column; }
+        .logo { font-size: 24px; font-weight: 800; color: var(--text); margin-bottom: 40px; display: flex; align-items: center; gap: 10px; }
+        .logo i { color: var(--accent); }
+        .nav-items { display: flex; flex-direction: column; gap: 12px; }
+        .nav-item { padding: 12px 16px; border-radius: 8px; color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 12px; transition: 0.2s; cursor: pointer; }
+        .nav-item:hover, .nav-item.active { background: rgba(245, 158, 11, 0.1); color: var(--accent); }
+        
+        .content { flex: 1; padding: 40px; overflow-y: auto; }
+        .header { margin-bottom: 32px; }
+        .header h1 { font-size: 28px; margin-bottom: 8px; }
+        .header p { color: var(--text-muted); }
+        
+        /* Stats */
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 40px; }
+        .stat-card { background: var(--surface); padding: 24px; border-radius: 12px; border: 1px solid var(--border); }
+        .stat-card i { font-size: 24px; color: var(--accent); margin-bottom: 16px; }
+        .stat-card h3 { font-size: 32px; margin-bottom: 4px; }
+        .stat-card p { color: var(--text-muted); font-size: 14px; }
+        
+        /* CRM Table */
+        .card { background: var(--surface); border-radius: 12px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 32px; display: none; }
+        .card.active { display: block; }
+        .card-header { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .card-header h2 { font-size: 18px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 16px 24px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { color: var(--text-muted); font-weight: 600; font-size: 14px; background: rgba(255,255,255,0.02); }
+        tr:hover { background: rgba(255,255,255,0.02); }
+        .badge { background: rgba(34, 197, 94, 0.2); color: #4ade80; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        
+        /* Social Media Generator */
+        .form-group { padding: 24px; }
+        .input-box { width: 100%; background: var(--bg); border: 1px solid var(--border); color: white; padding: 16px; border-radius: 8px; margin-bottom: 16px; font-size: 15px; resize: vertical; min-height: 100px; }
+        .input-box:focus { outline: none; border-color: var(--accent); }
+        .btn { background: var(--accent); color: black; border: none; padding: 14px 24px; border-radius: 8px; font-weight: 600; font-size: 15px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 8px; }
+        .btn:hover { background: var(--accent-hover); }
+        .btn:disabled { opacity: 0.7; cursor: not-allowed; }
+        
+        .result-box { margin: 24px; padding: 20px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; display: none; }
+        .result-box h3 { margin-bottom: 12px; font-size: 16px; color: var(--accent); }
+        .result-box pre { white-space: pre-wrap; font-family: 'Inter', sans-serif; color: var(--text-muted); line-height: 1.6; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo"><i class="fa-solid fa-house-signal"></i> Emlak AI</div>
+        <div class="nav-items">
+            <a class="nav-item active" onclick="switchTab('dashboard')"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+            <a class="nav-item" onclick="switchTab('social')"><i class="fa-brands fa-instagram"></i> Sosyal Medya Üretici</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="header">
+            <h1>Hoş Geldiniz, Ahmet Bey</h1>
+            <p>Emlak AI asistanınızın topladığı veriler ve araçlar.</p>
+        </div>
+
+        <div id="tab-dashboard" class="card active">
+            <div class="stats" style="padding: 24px; margin-bottom: 0;">
+                <div class="stat-card">
+                    <i class="fa-solid fa-users"></i>
+                    <h3 id="stat-leads">0</h3>
+                    <p>Toplam Müşteri Adayı</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <h3 id="stat-appointments">0</h3>
+                    <p>Alınan Randevular</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-robot"></i>
+                    <h3 id="stat-chats">24</h3>
+                    <p>Yapay Zeka Görüşmesi</p>
+                </div>
+            </div>
+
+            <div class="card-header" style="border-top: 1px solid var(--border);">
+                <h2><i class="fa-solid fa-list" style="color:var(--accent); margin-right:8px;"></i> Yakalanan Müşteri Adayları (Leads)</h2>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tarih</th>
+                        <th>İsim</th>
+                        <th>Telefon</th>
+                        <th>Bütçe</th>
+                        <th>Talepler</th>
+                        <th>Durum</th>
+                    </tr>
+                </thead>
+                <tbody id="leads-table-body">
+                    <tr><td colspan="6" style="text-align:center; padding: 30px; color: var(--text-muted);">Yükleniyor...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="tab-social" class="card">
+            <div class="card-header">
+                <h2><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--accent); margin-right:8px;"></i> AI Sosyal Medya & İlan Üretici</h2>
+            </div>
+            <div class="form-group">
+                <p style="color:var(--text-muted); margin-bottom: 16px;">Evin temel özelliklerini yazın (Örn: Kadıköy moda, 3+1, deniz manzaralı, yeni bina, 15 milyon TL). Yapay zeka sizin için profesyonel ilan metni ve Instagram postu hazırlasın.</p>
+                <textarea id="prompt-input" class="input-box" placeholder="İlan detaylarını buraya yazın..."></textarea>
+                <button id="generate-btn" class="btn" onclick="generatePost()">
+                    <i class="fa-solid fa-robot"></i> Üret
+                </button>
+            </div>
+            
+            <div id="result-box" class="result-box">
+                <h3><i class="fa-brands fa-instagram"></i> Instagram Postu</h3>
+                <pre id="result-ig" style="margin-bottom: 24px;"></pre>
+                
+                <h3><i class="fa-solid fa-clipboard-list"></i> İlan Açıklaması (Sahibinden/Hepsiemlak)</h3>
+                <pre id="result-listing"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.card').forEach(el => el.classList.remove('active'));
+            
+            event.currentTarget.classList.add('active');
+            document.getElementById('tab-' + tab).classList.add('active');
+            
+            if(tab === 'dashboard') loadLeads();
+        }
+
+        async function loadLeads() {
+            try {
+                const res = await fetch('/api/leads');
+                const data = await res.json();
+                const tbody = document.getElementById('leads-table-body');
+                
+                if (data.leads && data.leads.length > 0) {
+                    document.getElementById('stat-leads').innerText = data.leads.length;
+                    // Mock randevu data for visuals
+                    document.getElementById('stat-appointments').innerText = Math.floor(data.leads.length / 2);
+
+                    tbody.innerHTML = '';
+                    // Reverse to show newest first
+                    data.leads.reverse().forEach(lead => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>${lead.Tarih || '-'}</td>
+                                <td style="font-weight:600; color:white;">${lead.İsim || '-'}</td>
+                                <td>${lead.Telefon || '-'}</td>
+                                <td><span style="color:var(--accent); font-weight:600;">${lead.Bütçe || '-'}</span></td>
+                                <td style="max-width:300px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${lead.Talepler}">${lead.Talepler || '-'}</td>
+                                <td><span class="badge">${lead.Durum || 'Yeni'}</span></td>
+                            </tr>
+                        `;
+                    });
+                } else {
+                    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding: 30px; color: var(--text-muted);">Henüz kayıtlı müşteri adayı yok.</td></tr>`;
+                }
+            } catch (err) {
+                console.error(err);
+                document.getElementById('leads-table-body').innerHTML = `<tr><td colspan="6" style="text-align:center; color: #ef4444;">Veriler yüklenirken hata oluştu.</td></tr>`;
+            }
+        }
+
+        async function generatePost() {
+            const btn = document.getElementById('generate-btn');
+            const input = document.getElementById('prompt-input').value;
+            if(!input.trim()) return alert('Lütfen detayları yazın');
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Üretiliyor...';
+            document.getElementById('result-box').style.display = 'none';
+
+            try {
+                const res = await fetch('/api/generate-post', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ prompt: input })
+                });
+                const data = await res.json();
+                
+                document.getElementById('result-ig').innerText = data.instagram;
+                document.getElementById('result-listing').innerText = data.listing;
+                document.getElementById('result-box').style.display = 'block';
+            } catch (err) {
+                alert('Bir hata oluştu!');
+            }
+
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-robot"></i> Üret';
+        }
+
+        // Sayfa yüklendiğinde
+        window.onload = loadLeads;
+    </script>
+</body>
+</html>
