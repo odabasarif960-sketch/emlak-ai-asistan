@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus AI — Yeni Nesil Otonom Asistan Hub'ı</title>
+    <meta name="description" content="Emlak ve Otelcilik sektörlerine özel eğitilmiş uzman yapay zeka asistanları ile işinizi geleceğe taşıyın.">
+    <link rel="stylesheet" href="/static/css/style.css?v=4">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Meta Pixel Code Placeholder -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_PIXEL_ID');
+    fbq('track', 'PageView');
+    </script>
+    <!-- End Meta Pixel Code Placeholder -->
+    
+    <!-- Google Analytics (GA4) Placeholder -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    <!-- End Google Analytics -->
+
+    
+    <!-- Cache Bypass ROI Styles -->
+    <style>
+        .roi-section { padding: 6rem 5%; max-width: 1400px; margin: 0 auto; background: radial-gradient(circle at center, rgba(59, 130, 246, 0.05) 0%, transparent 70%); }
+        .roi-container { display: flex; flex-direction: column; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); border-radius: 1.5rem; padding: 3rem; margin-bottom: 3rem; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .roi-controls { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 3rem; }
+        .slider-group { display: flex; flex-direction: column; gap: 0.5rem; background: rgba(0, 0, 0, 0.2); padding: 1.5rem; border-radius: 1rem; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .slider-group label { font-size: 0.95rem; color: var(--text-secondary); }
+        .slider-value { font-size: 2.25rem; font-weight: 800; color: var(--brand-primary); margin-bottom: 1rem; }
+        .styled-slider { -webkit-appearance: none; width: 100%; height: 8px; border-radius: 4px; background: rgba(255, 255, 255, 0.1); outline: none; }
+        .styled-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; background: var(--brand-primary); cursor: pointer; box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); transition: transform 0.1s; }
+        .styled-slider::-webkit-slider-thumb:hover { transform: scale(1.1); }
+        .roi-results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .result-card { background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color); border-radius: 1rem; padding: 2rem; display: flex; flex-direction: column; position: relative; overflow: hidden; text-align: center; }
+        .result-icon { position: absolute; right: -1rem; top: -1rem; font-size: 8rem; opacity: 0.03; color: white; }
+        .result-card h4 { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 1rem; z-index: 2; }
+        .result-amount { font-size: 3rem; font-weight: 800; color: white; margin-bottom: 0.5rem; z-index: 2; }
+        .result-card.highlight { background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1)); border-color: rgba(139, 92, 246, 0.5); transform: scale(1.05); box-shadow: 0 15px 30px rgba(139, 92, 246, 0.2); }
+        .result-card.highlight .result-amount { background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 3.5rem; }
+        .result-card p { font-size: 0.95rem; color: var(--text-muted); z-index: 2; }
+        .roi-cta { text-align: center; }
+        @media (max-width: 992px) { .roi-controls, .roi-results { grid-template-columns: 1fr; } .result-card.highlight { transform: none; } }
+        
+        /* Bypass Cache for How It Works */
+        .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .how-step { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.5rem; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); border-radius: 1.5rem; padding: 2rem; position: relative; overflow: hidden; }
+        .how-image { width: 100%; height: 160px; border-radius: 1rem; overflow: hidden; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); z-index: 1; }
+        .how-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        
+        /* Floating Chat Widget */
+        #floating-chat-widget { position: fixed; bottom: 90px; right: 30px; width: 350px; height: 450px; background: rgba(15, 17, 21, 0.95); backdrop-filter: blur(20px); border: 1px solid var(--border-color); border-radius: 1.5rem; display: flex; flex-direction: column; z-index: 1000; box-shadow: 0 25px 50px rgba(0,0,0,0.5); transform: translateY(20px) scale(0.95); opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform-origin: bottom right; }
+        #floating-chat-widget.active { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto; }
+        .chat-widget-header { padding: 1rem 1.5rem; background: rgba(255,255,255,0.05); border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; border-radius: 1.5rem 1.5rem 0 0; }
+        .header-info { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 0.95rem; color: white; }
+        .status-dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; }
+        .close-chat { background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 1rem; transition: color 0.2s; }
+        .close-chat:hover { color: white; }
+        .chat-widget-body { flex-grow: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; }
+        .chat-widget-input { padding: 1rem; border-top: 1px solid var(--border-color); display: flex; gap: 0.5rem; }
+        .chat-widget-input input { flex-grow: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); border-radius: 2rem; padding: 0.5rem 1rem; color: white; outline: none; transition: border-color 0.2s; }
+        .chat-widget-input input:focus { border-color: var(--brand-primary); }
+        .chat-widget-input button { width: 40px; height: 40px; min-width: 40px; border-radius: 50%; background: var(--brand-primary); color: white; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+        .chat-widget-input button:hover { transform: scale(1.05); }
+        
+        #floating-chat-toggle { position: fixed; bottom: 30px; right: 30px; border-radius: 2rem; z-index: 999; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4); animation: bounce 2s infinite; font-size: 1.05rem; padding: 0.75rem 1.5rem; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    </style>
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-noise"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fa-solid fa-layer-group"></i> Nexus <span>AI</span>
+            </a>
+            <div class="nav-links">
+                <a href="#platform">Platform</a>
+                <a href="#features">Özellikler</a>
+                <a href="#how-it-works">Nasıl Çalışır?</a>
+                <a href="#pricing">Fiyatlandırma</a>
+            </div>
+            <div class="nav-actions">
+                <a href="#" class="btn btn-primary demo-trigger">Hemen Başla</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="badge">🚀 Nexus AI v2.0 Yayında</div>
+            <h1 class="hero-title">İşinizi Geleceğe Taşıyan <br><span class="gradient-text">Otonom Yapay Zeka</span></h1>
+            <p class="hero-subtitle">Müşteri hizmetlerinden satışa, randevu yönetiminden operasyona kadar tüm süreçlerinizi 7/24 yöneten sektörel yapay zeka asistanları.</p>
+            <div class="hero-buttons">
+                <a href="#platform" class="btn btn-primary btn-lg">Modelleri Keşfet <i class="fa-solid fa-arrow-right"></i></a>
+                <a href="#" class="btn btn-secondary btn-lg"><i class="fa-solid fa-play"></i> Demo İzle</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Müşteri Memnuniyeti</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">2.5x</span>
+                    <span class="stat-label">Satış Artışı</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">7/24</span>
+                    <span class="stat-label">Kesintisiz Hizmet</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-dashboard">
+                <div class="dash-header">
+                    <div class="dots"><span></span><span></span><span></span></div>
+                    <div class="dash-title">Nexus AI Hub</div>
+                </div>
+                <div class="dash-body">
+                    <div class="chat-mockup">
+                        <div class="msg bot">Merhaba! Size nasıl yardımcı olabilirim?</div>
+                        <div class="msg user">Deniz manzaralı bir daire arıyorum.</div>
+                        <div class="msg bot">Harika! Sizin için uygun olan 3 portföyü listeledim...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Trusted By -->
+    <section class="trusted-by">
+        <p>Sektörün Öncü Şirketleri Tarafından Tercih Ediliyor</p>
+        <div class="logos">
+            <i class="fa-brands fa-aws"></i>
+            <i class="fa-brands fa-microsoft"></i>
+            <i class="fa-brands fa-google"></i>
+            <i class="fa-brands fa-meta"></i>
+            <i class="fa-brands fa-stripe"></i>
+        </div>
+    </section>
+
+    <!-- Platform Models -->
+    <section id="platform" class="platform-section">
+        <div class="section-header">
+            <h2>İhtiyacınıza Uygun <span class="gradient-text">AI Modelleri</span></h2>
+            <p>Sektörünüze özel eğitilmiş, spesifik iş akışlarına hakim otonom asistanları tek tıkla devreye alın.</p>
+        </div>
+
+        <div class="models-grid">
+            <!-- Emlak AI -->
+            <div class="model-card card-emlak">
+                <div class="card-glass">
+                    <div class="icon-wrapper">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+                    <h3>Emlak AI</h3>
+                    <p>Müşterilerinizin bütçe ve lokasyon taleplerine göre saniyeler içinde en uygun ilanları bulan ve otomatik randevu oluşturan uzman gayrimenkul danışmanı.</p>
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check"></i> RAG Destekli İlan Eşleştirme</li>
+                        <li><i class="fa-solid fa-check"></i> Takvim Entegrasyonu</li>
+                        <li><i class="fa-solid fa-check"></i> WhatsApp Üzerinden İletişim</li>
+                    </ul>
+                    <a href="/static/chat.html?model=emlak" class="btn btn-emlak">Asistanı Başlat <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <!-- HotelMind AI -->
+            <div class="model-card card-hotel">
+                <div class="card-glass">
+                    <div class="icon-wrapper">
+                        <i class="fa-solid fa-hotel"></i>
+                    </div>
+                    <h3>HotelMind AI</h3>
+                    <p>Misafirlerinizi karşılayan, onlara oda tavsiyesinde bulunan ve doğrudan komisyonsuz rezervasyon alarak gelirlerinizi artıran akıllı otel asistanınız.</p>
+                    <ul class="feature-list">
+                        <li><i class="fa-solid fa-check"></i> Direkt Rezervasyon Modülü</li>
+                        <li><i class="fa-solid fa-check"></i> Çoklu Dil Desteği (50+ Dil)</li>
+                        <li><i class="fa-solid fa-check"></i> Oda & Fiyat Optimizasyonu</li>
+                    </ul>
+                    <a href="/static/chat.html?model=hotel" class="btn btn-hotel">Asistanı Başlat <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Coming Soon -->
+            <div class="model-card card-coming">
+                <div class="card-glass">
+                    <div class="icon-wrapper">
+                        <i class="fa-solid fa-car"></i>
+                    </div>
+                    <h3>Araç Filo AI</h3>
+                    <p>Rent a car, filo yönetim ve araç kiralama süreçlerini otomatize eden, sözleşme ve hasar yönetimi yapabilen yeni nesil asistan.</p>
+                    <div class="coming-badge">Q3 2026'da Geliyor</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Bento Box -->
+    <section id="features" class="features-section">
+        <div class="section-header">
+            <h2>Neden <span class="gradient-text">Nexus AI?</span></h2>
+            <p>Geleneksel chatbotlardan ayrılan, tam otonom ve akıllı mimari.</p>
+        </div>
+        
+        <div class="bento-grid">
+            <div class="bento-item bento-large">
+                <div class="bento-content">
+                    <h3>Gelişmiş RAG Teknolojisi</h3>
+                    <p>Sizin verilerinizle (ilanlar, oda tipleri, kurallar) beslenen vektör veritabanı sayesinde halüsinasyon görmeden %100 doğru ve kesin yanıtlar verir.</p>
+                </div>
+                <div class="bento-visual" style="padding: 1rem; height: 100%;">
+                    <img src="/static/assets/rag_brain.png" style="width: 100%; height: 100%; object-fit: cover; border-radius: 1rem; border: 1px solid rgba(255,255,255,0.1);" alt="RAG Technology">
+                </div>
+            </div>
+            <div class="bento-item">
+                <div class="bento-content">
+                    <h3>Çoklu Kanal</h3>
+                    <p>Web sitenizde, WhatsApp'ta, Instagram'da ve Telegram'da aynı anda çalışır.</p>
+                </div>
+                <div class="bento-visual" style="padding: 1rem; height: 100%;">
+                    <img src="/static/assets/omnichannel.png" style="width: 100%; height: 100%; object-fit: cover; border-radius: 1rem; border: 1px solid rgba(255,255,255,0.1);" alt="Omnichannel AI">
+                </div>
+            </div>
+            <div class="bento-item">
+                <div class="bento-content">
+                    <h3>7/24 Kesintisiz</h3>
+                    <p>Tatil, uyku veya mesai saati bilmez. Müşterilerinize her an yanıt verir.</p>
+                </div>
+                <div class="bento-visual">
+                    <i class="fa-solid fa-clock bg-icon"></i>
+                </div>
+            </div>
+            <div class="bento-item bento-wide">
+                <div class="bento-content">
+                    <h3>Otonom Aksiyonlar & CRM Entegrasyonu</h3>
+                    <p>Sadece sohbet etmez; sizin adınıza randevu alır, takviminizi günceller ve toplanan tüm lead'leri anında CRM sisteminize (HubSpot, Salesforce vb.) kaydeder.</p>
+                </div>
+                <div class="bento-visual" style="position: absolute; right: 2rem; top: 2rem; width: 40%; height: 80%;">
+                    <img src="/static/assets/crm_calendar.png" style="width: 100%; height: 100%; object-fit: cover; border-radius: 1rem; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5);" alt="CRM and Calendar">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="how-it-works-section">
+        <div class="section-header">
+            <h2>Nasıl <span class="gradient-text">Çalışır?</span></h2>
+            <p>Karmaşık kodlamalar veya uzun kurulum süreçleri yok. Her şey anında kullanıma hazır.</p>
+        </div>
+        
+        <div class="how-grid">
+            <div class="how-step">
+                <div class="how-image">
+                    <img src="/static/assets/dashboard_ui.png" alt="Nexus Dashboard" />
+                </div>
+                <div class="how-text">
+                    <div class="step-num">01</div>
+                    <h3>Verilerinizi Bağlayın</h3>
+                    <p>Sisteme ürünlerinizi, ilanlarınızı, odalarınızı veya belgelerinizi saniyeler içinde ekleyin. Gelişmiş panelimiz tüm envanteri anında indeksler ve RAG teknolojisi için vektör haline getirir.</p>
+                </div>
+            </div>
+
+            <div class="how-step">
+                <div class="how-image">
+                    <img src="/static/assets/chat_ui.png" alt="WhatsApp Entegrasyonu" />
+                </div>
+                <div class="how-text">
+                    <div class="step-num">02</div>
+                    <h3>Kanallarınızı Seçin</h3>
+                    <p>Müşterilerinizin size en çok nereden ulaştığını seçin: Web sitenize bir widget olarak ekleyin, WhatsApp numaranıza bağlayın veya Instagram DM'lerinize entegre edin. Her kanalda kesintisiz diyalog kurun.</p>
+                </div>
+            </div>
+
+            <div class="how-step">
+                <div class="how-image">
+                    <img src="/static/assets/analytics.png" alt="Analitik Dashboard" />
+                </div>
+                <div class="how-text">
+                    <div class="step-num">03</div>
+                    <h3>Satış ve Analitiği İzleyin</h3>
+                    <p>Asistanınızın kaç randevu aldığını, kaç direkt satış kapattığını ve hangi ürünlere talep olduğunu gerçek zamanlı analitik tablosundan takip edin. Arkanıza yaslanın ve büyümenin tadını çıkarın.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Calculator -->
+    <section id="roi-calculator" class="roi-section">
+        <div class="section-header">
+            <h2>Ne Kadar <span class="gradient-text">Kazanacaksınız?</span></h2>
+            <p>Nexus AI'ın işletmenize katacağı net değeri saniyeler içinde hesaplayın.</p>
+        </div>
+        
+        <div class="roi-container">
+            <div class="roi-controls">
+                <div class="slider-group">
+                    <label for="monthly-leads">Aylık Müşteri İletişimi (Mesaj/Çağrı)</label>
+                    <div class="slider-value"><span id="leads-val">1000</span></div>
+                    <input type="range" id="monthly-leads" min="100" max="10000" step="100" value="1000" class="styled-slider">
+                </div>
+                
+                <div class="slider-group">
+                    <label for="avg-value">Müşteri Başı Ortalama Kar (₺)</label>
+                    <div class="slider-value">₺<span id="value-val">5.000</span></div>
+                    <input type="range" id="avg-value" min="500" max="50000" step="500" value="5000" class="styled-slider">
+                </div>
+                
+                <div class="slider-group">
+                    <label for="staff-cost">Saatlik Personel Maliyeti (₺)</label>
+                    <div class="slider-value">₺<span id="staff-val">250</span></div>
+                    <input type="range" id="staff-cost" min="100" max="1000" step="50" value="250" class="styled-slider">
+                </div>
+            </div>
+            
+            <div class="roi-results">
+                <div class="result-card">
+                    <i class="fa-solid fa-clock result-icon"></i>
+                    <h4>Kazanılan Zaman</h4>
+                    <div class="result-amount"><span id="saved-hours">250</span> Saat</div>
+                    <p>Manuel yanıtlardan kurtarılan süre</p>
+                </div>
+                <div class="result-card">
+                    <i class="fa-solid fa-chart-line result-icon"></i>
+                    <h4>Ekstra Satış/Rezervasyon</h4>
+                    <div class="result-amount">+<span id="extra-sales">30</span> İşlem</div>
+                    <p>7/24 anında yanıtın getirdiği artış</p>
+                </div>
+                <div class="result-card highlight">
+                    <i class="fa-solid fa-sack-dollar result-icon"></i>
+                    <h4>Aylık Tahmini Kazanç</h4>
+                    <div class="result-amount">₺<span id="total-roi">212.500</span></div>
+                    <p>Maliyet tasarrufu + Ekstra satışlar</p>
+                </div>
+            </div>
+        </div>
+        <div class="roi-cta">
+            <a href="#" class="btn btn-primary btn-lg demo-trigger">Bu Kazancı Elde Etmeye Başla <i class="fa-solid fa-rocket"></i></a>
+        </div>
+    </section>
+
+    <!-- Lead Magnet Section -->
+    <section class="lead-magnet-section" style="padding: 4rem 5%; max-width: 1200px; margin: 0 auto 6rem auto; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1)); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 2rem; display: flex; align-items: center; gap: 4rem; position: relative; overflow: hidden;">
+        <div style="flex: 1; z-index: 2;">
+            <div class="badge" style="background: rgba(139, 92, 246, 0.2); border-color: rgba(139, 92, 246, 0.3); color: #c4b5fd;">Ücretsiz E-Kitap</div>
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem; font-weight: 700;">2026'da İşletmeler Yapay Zeka ile Nasıl Büyür?</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem;">Emlak ve otel sektörlerinde rakiplerinizi geride bırakmanızı sağlayacak 15 sayfalık operasyonel strateji rehberini hemen e-postanıza gönderelim.</p>
+            <form style="display: flex; gap: 1rem; max-width: 500px; flex-wrap: wrap;">
+                <input type="email" placeholder="İş e-posta adresiniz..." required style="flex-grow: 1; padding: 1rem 1.5rem; border-radius: 999px; border: 1px solid var(--border-color); background: rgba(0,0,0,0.5); color: white; outline: none; font-family: inherit;">
+                <button type="submit" class="btn btn-primary" style="background: var(--brand-secondary); box-shadow: 0 4px 14px 0 rgba(139, 92, 246, 0.4); border: none;">Raporu İndir <i class="fa-solid fa-download" style="margin-left: 0.5rem;"></i></button>
+            </form>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 1rem;"><i class="fa-solid fa-shield-halved"></i> Bilgileriniz %100 güvendedir. Spam e-posta göndermeyiz.</p>
+        </div>
+        <div style="flex: 1; display: flex; justify-content: center; z-index: 2;">
+            <div style="width: 280px; height: 380px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: -20px 20px 60px rgba(0,0,0,0.5); transform: rotate(5deg) scale(1.05); backdrop-filter: blur(10px);">
+                <i class="fa-solid fa-book-open-reader" style="font-size: 5rem; color: #8b5cf6; margin-bottom: 2rem; filter: drop-shadow(0 0 15px rgba(139,92,246,0.5));"></i>
+                <h3 style="text-align: center; font-size: 1.5rem; padding: 0 1.5rem; line-height: 1.3;">Yapay Zeka <br>Strateji Rehberi</h3>
+                <div style="margin-top: 2rem; width: 50px; height: 5px; background: #8b5cf6; border-radius: 5px;"></div>
+                <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted);">PDF Formatında</p>
+            </div>
+        </div>
+        <!-- Decorative blobs -->
+        <div style="position: absolute; top: -100px; right: -100px; width: 300px; height: 300px; background: #8b5cf6; filter: blur(100px); opacity: 0.2; pointer-events: none;"></div>
+        <div style="position: absolute; bottom: -100px; left: -100px; width: 300px; height: 300px; background: #3b82f6; filter: blur(100px); opacity: 0.2; pointer-events: none;"></div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="pricing-section">
+        <div class="section-header">
+            <h2>Şeffaf <span class="gradient-text">Fiyatlandırma</span></h2>
+            <p>İşletmenizin büyüklüğüne uygun, esnek ve ölçeklenebilir planlar.</p>
+        </div>
+        
+        <div class="pricing-grid">
+            <!-- Starter -->
+            <div class="price-card">
+                <h3>Başlangıç</h3>
+                <div class="price">₺2.500<span>/ay</span></div>
+                <p>Küçük işletmeler ve bağımsız danışmanlar için ideal.</p>
+                <ul class="price-features">
+                    <li><i class="fa-solid fa-check"></i> Tek model (Emlak veya Otel)</li>
+                    <li><i class="fa-solid fa-check"></i> 1.000 mesaj kredisi</li>
+                    <li><i class="fa-solid fa-check"></i> Sadece Web Widget</li>
+                    <li><i class="fa-solid fa-check"></i> Standart Destek</li>
+                </ul>
+                <a href="#" class="btn btn-outline demo-trigger">Demo Talep Et</a>
+            </div>
+
+            <!-- Pro -->
+            <div class="price-card popular">
+                <div class="popular-badge">En Çok Tercih Edilen</div>
+                <h3>Profesyonel</h3>
+                <div class="price">₺7.500<span>/ay</span></div>
+                <p>Büyüyen işletmeler için çok kanallı tam otomasyon.</p>
+                <ul class="price-features">
+                    <li><i class="fa-solid fa-check"></i> Tüm modellere erişim</li>
+                    <li><i class="fa-solid fa-check"></i> 10.000 mesaj kredisi</li>
+                    <li><i class="fa-solid fa-check"></i> WhatsApp & IG Entegrasyonu</li>
+                    <li><i class="fa-solid fa-check"></i> Randevu & Takvim Modülü</li>
+                    <li><i class="fa-solid fa-check"></i> Öncelikli Destek</li>
+                </ul>
+                <a href="#" class="btn btn-primary demo-trigger">Ücretsiz Dene</a>
+            </div>
+
+            <!-- Enterprise -->
+            <div class="price-card">
+                <h3>Kurumsal</h3>
+                <div class="price">Özel Fiyat</div>
+                <p>Yüksek hacimli ve özel entegrasyon isteyen markalar için.</p>
+                <ul class="price-features">
+                    <li><i class="fa-solid fa-check"></i> Sınırsız mesajlaşma</li>
+                    <li><i class="fa-solid fa-check"></i> Kendi verinizle özel eğitim</li>
+                    <li><i class="fa-solid fa-check"></i> Özel API & Webhook'lar</li>
+                    <li><i class="fa-solid fa-check"></i> Dedicated Account Manager</li>
+                    <li><i class="fa-solid fa-check"></i> 7/24 VIP Destek</li>
+                </ul>
+                <a href="#" class="btn btn-outline demo-trigger">Satışla Görüş</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="/" class="logo">
+                    <i class="fa-solid fa-layer-group"></i> Nexus <span>AI</span>
+                </a>
+                <p>Geleceğin otonom yapay zeka asistanları ile iş süreçlerinizi baştan yaratın.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h4>Ürünler</h4>
+                <a href="#">Emlak AI</a>
+                <a href="#">HotelMind AI</a>
+                <a href="#">Fleet AI</a>
+                <a href="#">API Dokümantasyonu</a>
+            </div>
+            <div class="footer-links">
+                <h4>Şirket</h4>
+                <a href="#">Hakkımızda</a>
+                <a href="#">Kariyer</a>
+                <a href="#">Blog</a>
+                <a href="#">İletişim</a>
+            </div>
+            <div class="footer-links">
+                <h4>Yasal</h4>
+                <a href="#">Gizlilik Politikası</a>
+                <a href="#">Kullanım Şartları</a>
+                <a href="#">KVKK Aydınlatma Metni</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Nexus AI Technologies. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <!-- Demo Modal -->
+    <div id="demo-modal" class="modal-overlay">
+        <div class="modal-box">
+            <span class="close-modal"><i class="fa-solid fa-xmark"></i></span>
+            <h2>Ücretsiz <span class="gradient-text">Demo Randevusu Alın</span></h2>
+            <p>Sizin için en uygun zamanı seçin, uzmanlarımız size Nexus AI'ın işletmenizi nasıl dönüştüreceğini canlı anlatsın.</p>
+            
+            <div style="text-align: center; margin: 2rem 0;">
+                <a href="https://calendly.com/" target="_blank" class="btn btn-primary btn-lg" style="width: 100%; justify-content: center;"><i class="fa-solid fa-calendar-check"></i> Takvimden Randevu Seç</a>
+            </div>
+            
+            <div style="display: flex; align-items: center; margin: 1.5rem 0; color: var(--text-muted); font-size: 0.9rem;">
+                <hr style="flex-grow: 1; border-color: var(--border-color);">
+                <span style="padding: 0 1rem;">Veya formu doldurun, biz arayalım</span>
+                <hr style="flex-grow: 1; border-color: var(--border-color);">
+            </div>
+
+            <form id="demo-form" class="modal-form">
+                <div class="form-group">
+                    <label>Ad Soyad</label>
+                    <input type="text" placeholder="Örn: Arif Odabaş" required>
+                </div>
+                <div class="form-group">
+                    <label>E-posta Adresi</label>
+                    <input type="email" placeholder="ornek@sirket.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Telefon Numarası</label>
+                    <input type="tel" placeholder="+90 555 123 45 67">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Talebi Gönder</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Floating Chat Widget -->
+    <div id="floating-chat-widget">
+        <div class="chat-widget-header">
+            <div class="header-info">
+                <div class="status-dot"></div>
+                <span>Nexus AI - Canlı Demo</span>
+            </div>
+            <button class="close-chat" id="close-chat-btn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="chat-widget-body" id="floating-chat-body">
+            <div class="msg bot">Merhaba! 👋 Nexus AI'ın yeteneklerini hemen şimdi test etmek ister misiniz? Bana sistemin nasıl çalıştığını veya size nasıl para kazandırabileceğini sorabilirsiniz.</div>
+        </div>
+        <div class="chat-widget-input">
+            <input type="text" id="floating-chat-input" placeholder="Bana bir soru sorun...">
+            <button type="submit" id="floating-chat-send"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+    <button id="floating-chat-toggle" class="btn btn-primary">
+        <i class="fa-solid fa-message"></i> Beni Dene
+    </button>
+
+    <script src="/static/js/main.js?v=3"></script>
+    <script>
+        // Floating Chat Toggle Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleBtn = document.getElementById('floating-chat-toggle');
+            const chatWidget = document.getElementById('floating-chat-widget');
+            const closeBtn = document.getElementById('close-chat-btn');
+            const chatInput = document.getElementById('floating-chat-input');
+            const chatSend = document.getElementById('floating-chat-send');
+            const chatBody = document.getElementById('floating-chat-body');
+
+            toggleBtn.addEventListener('click', () => {
+                chatWidget.classList.add('active');
+                toggleBtn.style.display = 'none';
+                setTimeout(() => chatInput.focus(), 300);
+            });
+
+            closeBtn.addEventListener('click', () => {
+                chatWidget.classList.remove('active');
+                setTimeout(() => toggleBtn.style.display = 'inline-flex', 300);
+            });
+
+            const sendMessage = () => {
+                const text = chatInput.value.trim();
+                if (!text) return;
+
+                // Add user msg
+                const userMsg = document.createElement('div');
+                userMsg.className = 'msg user';
+                userMsg.textContent = text;
+                chatBody.appendChild(userMsg);
+                chatInput.value = '';
+
+                // Scroll to bottom
+                chatBody.scrollTop = chatBody.scrollHeight;
+
+                // Simulate bot typing
+                setTimeout(() => {
+                    const botMsg = document.createElement('div');
+                    botMsg.className = 'msg bot';
+                    botMsg.innerHTML = 'Şu an bu sadece bir demo arayüzüdür. Tam kapasiteli bir Nexus AI asistanını test etmek için yukarıdaki <strong>Modelleri Keşfet</strong> butonuna tıklayabilir veya demo randevusu alabilirsiniz!';
+                    chatBody.appendChild(botMsg);
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                }, 1000);
+            };
+
+            chatSend.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+        });
+    </script>
+</body>
+</html>
